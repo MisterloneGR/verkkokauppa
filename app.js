@@ -39,6 +39,9 @@ Vue.component('product-list', {
       // Keep track of the filters
       categoryFilters: [],
       brandFilters: [],
+      // Define the selected categories and brands
+      selectedCategories: [],
+      selectedBrands: [],
     };
   },
   computed: {
@@ -60,33 +63,72 @@ Vue.component('product-list', {
   },
   template: `
     <div>
-      <div class="row">
-        <div class="col-lg-3">
-          <h3>Category Filters</h3>
-          <div v-for="category in uniqueCategories" :key="category">
-            <input type="checkbox" :id="category" :value="category" v-model="categoryFilters">
-            <label :for="category">{{ category }}</label>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <h3>Brand Filters</h3>
-          <div v-for="brand in uniqueBrands" :key="brand">
-            <input type="checkbox" :id="brand" :value="brand" v-model="brandFilters">
-            <label :for="brand">{{ brand }}</label>
-          </div>
+      <div class="form-group">
+        <label>Category:</label>
+        <div>
+          <label>
+            <input type="checkbox" value="CPU" v-model="selectedCategories" /> CPU
+          </label>
+          <label>
+            <input type="checkbox" value="GPU" v-model="selectedCategories" /> GPU
+          </label>
+          <label>
+            <input type="checkbox" value="RAM" v-model="selectedCategories" /> RAM
+          </label>
         </div>
       </div>
-      <div id="product-list" class="row">
-        <div class="col-lg-4 mb-4" v-for="product in filteredProducts" :key="product.id">
-          <div class="card">
-            <img :src="product.image" class="card-img-top" :alt="product.name">
-            <div class="card</div>
+      <div class="form-group">
+        <label>Brand:</label>
+        <div>
+          <label>
+            <input type="checkbox"
+            value="Intel"
+            v-model="selectedBrands"
+          />
+          Intel
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="AMD"
+            v-model="selectedBrands"
+          />
+          AMD
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="NVIDIA"
+            v-model="selectedBrands"
+          />
+          NVIDIA
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="G.SKILL"
+            v-model="selectedBrands"
+          />
+          G.SKILL
+        </label>
+      </div>
+      <div class="product-list">
+        <div
+          v-for="product in filteredProducts"
+          :key="product.id"
+          class="product"
+        >
+          <img :src="product.image" :alt="product.name" />
+          <h3>{{ product.name }}</h3>
+          <p class="price">${{ product.price.toFixed(2) }}</p>
+          <button @click="addToCart(product.id)">Add to Cart</button>
         </div>
       </div>
     </div>
-  `
-});
-
-new Vue({
-el: "#app",
-});
+    `,
+  });
+  
+  // Mount the component to the app
+  new Vue({
+  el: "#app",
+  });
