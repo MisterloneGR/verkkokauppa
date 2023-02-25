@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Computer Components</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="app">
+      <div id="filters">
+        <h4>Filters</h4>
+        <label><input type="checkbox" v-model="selectedCategories" value="CPU"> CPU</label>
+        <label><input type="checkbox" v-model="selectedCategories" value="GPU"> GPU</label>
+        <label><input type="checkbox" v-model="selectedCategories" value="RAM"> RAM</label>
+        <label><input type="checkbox" v-model="selectedBrands" value="Intel"> Intel</label>
+        <label><input type="checkbox" v-model="selectedBrands" value="AMD"> AMD</label>
+      </div>
+
+      <div id="product-list">
+        <div class="row">
+          <div class="col-lg-4 mb-4" v-for="product in filteredProducts" :key="product.id">
+            <div class="card">
+              <img :src="product.image" class="card-img-top" :alt="product.name">
+              <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.brand }} - {{ product.category }}</p>
+                <p class="card-text">$ {{ product.price.toFixed(2) }}</p>
+                <button class="btn btn-primary" @click="addToCart(product.id)">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
